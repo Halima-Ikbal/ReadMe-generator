@@ -51,17 +51,43 @@ const questions = [
   }, 
   {
    type: 'input',
-   name: 'Credit' 
-  }
+   name: 'credit',
+   message: 'List your collaborators, if any, with links to their GitHub profiles.'
+  },
+  {
+    type: 'checkbox',
+    name: 'license',
+    message: 'Choose a licence',
+    choices: ['MIT', ' GNU GPLv3 ', 'NONE'],
+
+  },
 
 
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
+const writeToFile = fileContent => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile('./generatedREADME.md', fileContent, err => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve({
+        ok: true,
+        message: 'File Generated'
+      });
+    });
+  });
+};
 // TODO: Create a function to initialize app
-function init() {}
+function init() {inquirer.prompt(questions)
+  .then(function(data) {
+    console.log(data);
+    var fileContent = generateMarkdown(data);
+    writeToFile(fileContent)
+  });
+}
 
 // Function call to initialize app
 init();

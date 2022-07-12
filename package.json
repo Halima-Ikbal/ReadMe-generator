@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/coding-boot-camp/potential-enigma#readme",
   "dependencies": {
-    "inquirer": "^9.0.0",
-    "require": "^2.4.20"
+    "inquirer": "^8.2.4",
+    "require": "^0.4.4"
   }
 }
