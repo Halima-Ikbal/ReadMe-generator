@@ -75,19 +75,31 @@ const writeToFile = fileContent => {
       }
       resolve({
         ok: true,
-        message: 'File Generated'
+        message: 'File Created'
       });
     });
   });
 };
 // TODO: Create a function to initialize app
-function init() {inquirer.prompt(questions)
-  .then(function(data) {
-    console.log(data);
-    var fileContent = generateMarkdown(data);
-    writeToFile(fileContent)
+const init = () => { 
+  return inquirer.prompt(questions)
+  .then(readmeData => {
+   return readmeData;
   });
 }
 
 // Function call to initialize app
-init();
+init()
+.then(readmeData => {
+  console.log(readmeData);
+  return generateMarkdown(readmeData);
+})
+.then(pageMD => {
+  return writeToFile(pageMD);
+})
+.then(writeFileResponse => {
+  console.log(writeFileResponse.message);
+})
+.catch(err => {
+  console.log(err);
+})
